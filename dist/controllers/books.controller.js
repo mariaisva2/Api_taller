@@ -22,7 +22,7 @@ export class BooksController {
                 method: "GET",
                 headers: headers
             };
-            const response = yield fetch(`${this.domain}api/v1/books?limit=${limit}&page=${page}`, reqOptions);
+            const response = yield fetch(`${this.domain}/api/v1/books?limit=${limit}&page=${page}`, reqOptions);
             console.log(response);
             if (!response.ok) {
                 throw new Error(`Error al obtener los libros${response.statusText}: ${response.status}`);
@@ -31,7 +31,7 @@ export class BooksController {
             return responseBodyResponseGetAllBooks;
         });
     }
-    createBook(title, author, description, summary, publicationDate, token) {
+    create(title, author, description, summary, publicationDate, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const newBook = {
                 title: title.value,
@@ -54,8 +54,8 @@ export class BooksController {
             if (!response.ok) {
                 throw new Error(`Error al obtener los libros${response.statusText}: ${response.status}`);
             }
-            const responseBodyResponseCreateBook = yield response.json();
-            return responseBodyResponseCreateBook;
+            const responseBodyCreateBook = yield response.json();
+            return responseBodyCreateBook;
         });
     }
     getById(id, token) {
@@ -69,7 +69,7 @@ export class BooksController {
                 method: "GET",
                 headers: headers
             };
-            const response = yield fetch(`${this.domain}/api/v1/books/id${id}`, reqOptions);
+            const response = yield fetch(`${this.domain}/api/v1/books/${id}`, reqOptions);
             if (!response.ok) {
                 throw new Error(`Error al obtener los libros${response.statusText}: ${response.status}`);
             }

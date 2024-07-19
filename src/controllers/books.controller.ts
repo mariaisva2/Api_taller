@@ -7,7 +7,7 @@ export class BooksController{
     constructor(domain:string){
         this.domain = domain;
     }
-    async allBooks(token: string, limit:number, page:string): Promise<BodyResponseGetAllBooks>{
+    async allBooks(token: string, limit:number, page:number): Promise<BodyResponseGetAllBooks>{
         const headers: Record<string, string> = {
            "accept":"/",
             "content-Type":"application/json",
@@ -17,7 +17,7 @@ export class BooksController{
             method: "GET",
             headers: headers
         }
-        const response:Response = await fetch(`${this.domain}api/v1/books?limit=${limit}&page=${page}`, reqOptions);
+        const response:Response = await fetch(`${this.domain}/api/v1/books?limit=${limit}&page=${page}`, reqOptions);
         console.log(response);
         if(!response.ok){
             throw new Error(`Error al obtener los libros${response.statusText}: ${response.status}`);
@@ -25,7 +25,7 @@ export class BooksController{
         const responseBodyResponseGetAllBooks: BodyResponseGetAllBooks = await response.json();
         return responseBodyResponseGetAllBooks;
     }    
-    async createBook(title: HTMLInputElement, author: HTMLInputElement, description: HTMLInputElement, summary: HTMLInputElement, publicationDate: HTMLInputElement, token: string): Promise<BodyResponseCreateBook>{
+    async create(title: HTMLInputElement, author: HTMLInputElement, description: HTMLInputElement, summary: HTMLInputElement, publicationDate: HTMLInputElement, token: string): Promise<BodyResponseCreateBook>{
         const newBook : BodyRequestCreateBook = {
             title: title.value,
             author: author.value,
@@ -47,8 +47,8 @@ export class BooksController{
          if(!response.ok){
             throw new Error(`Error al obtener los libros${response.statusText}: ${response.status}`);
         }
-        const responseBodyResponseCreateBook: BodyResponseCreateBook = await response.json();
-        return responseBodyResponseCreateBook;
+        const responseBodyCreateBook: BodyResponseCreateBook = await response.json();
+        return responseBodyCreateBook;
     }
     async getById(id: string, token: string): Promise<BodyResponseGetById>{
         const headers: Record<string, string> = {
@@ -60,7 +60,7 @@ export class BooksController{
             method: "GET",
             headers: headers
         };
-        const response: Response = await fetch(`${this.domain}/api/v1/books/id${id}`, reqOptions);
+        const response: Response = await fetch(`${this.domain}/api/v1/books/${id}`, reqOptions);
         if(!response.ok){
             throw new Error(`Error al obtener los libros${response.statusText}: ${response.status}`)
         };
