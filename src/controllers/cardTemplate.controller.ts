@@ -49,7 +49,7 @@ export class CardTemplateController{
 
         const btnDelete = document.createElement("button");
         btnDelete.classList.add("btn", "btn-danger");
-        btnDelete.textContent = "DeDelete";
+        btnDelete.textContent = "Delete";
         btnDelete.type = "button";
         btnDelete.dataset.id = id;
 
